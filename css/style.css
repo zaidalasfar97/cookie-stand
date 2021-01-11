@@ -1,0 +1,14 @@
+table {
+    background-color:grey;
+    color: white;
+    margin-top:   50px;
+    margin-bottom: 100px;
+
+}
+
+tr td {
+    color:turquoise;
+    padding: 10px;
+    border:2px , 2px ,  2px , 2px
+
+}
