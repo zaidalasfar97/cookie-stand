@@ -3,12 +3,45 @@ table {
     color: white;
     margin-top:   50px;
     margin-bottom: 100px;
+    border: 3px solid black;
+    border-collapse: collapse;
 
 }
 
-tr td {
+tr td  {
+    border: 3px solid black;
+    border-collapse: collapse;
     color:turquoise;
     padding: 10px;
     border:2px , 2px ,  2px , 2px
 
 }
+
+header{
+    position: relative;
+}
+header img {
+    position: absolute;
+    height: 150px;
+    margin-left: 1000px;
+    margin-top: auto;
+   
+}
+nav ul li {
+    position: relative;
+    display: inline;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    margin-left: 30px;
+    background-color: cadetblue;
+
+
+}
+
+main ul li {
+    display: inline;
+    padding: 10px;
+    border:3px solid black;
+    background-color:darkturquoise;
+}
+

@@ -10,6 +10,7 @@ function multi(customer, cookie) {
     return customer * cookie;
 }
 var shops = [];
+
 //Constructor
 
 function CookiesShop(name, minCastPerHour, maxCastPerHour, avgCookiesPerSale) {
@@ -75,7 +76,6 @@ var parentMain = document.getElementById('main-id');
 var table=document.createElement('table')
 parentMain.appendChild(table);
   var headerRow =document.createElement('th');
-  headerRow.textContent=operationHour;
   headerRow.textContent='';
   table.appendChild(headerRow);
 for (var i=0 ; i <=operationHour.length ; i++){
