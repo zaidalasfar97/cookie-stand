@@ -6,12 +6,12 @@ function random(min, max) {
     return Math.floor(Math.random() * (max - min) + min);
 }
 function multi(customer, cookie) {
-
     return customer * cookie;
 }
 var shops = [];
 
 //Constructor
+var totalPerHourForAllLocation = [];
 
 function CookiesShop(name, minCastPerHour, maxCastPerHour, avgCookiesPerSale) {
     this.name = name;
@@ -21,23 +21,27 @@ function CookiesShop(name, minCastPerHour, maxCastPerHour, avgCookiesPerSale) {
     this.total = 0;
     this.customerPerHour = [];
     this.avgCookiesPerhour = [];
+    this.grandTotal = [];
     shops.push(this);
 
-
 }
+
+
+// This function should generat a random number for a given max and min numbers for customers
 CookiesShop.prototype.randomCustomer = function () {
     for (var i = 0; i < operationHour.length; i++) {
         this.customerPerHour.push(random(this.minCastPerHour, this.maxCastPerHour));
     }
 }
 
-
+// This function should calculate the cookies avg number for each hour
 CookiesShop.prototype.cookiesbuy = function () {
     for (var x = 0; x < operationHour.length; x++) {
         console.log(this.customerPerHour[x]);
         console.log(this.avgCookiesPerSale);
         this.avgCookiesPerhour.push(Math.floor(multi(this.customerPerHour[x], this.avgCookiesPerSale)));
         console.log(this.avgCookiesPerhour);
+        //  totalOfColum[x]=totalOfColum[x]+this.customerPerHour[x];
     }
 
 }
@@ -48,43 +52,58 @@ CookiesShop.prototype.getTotal = function () {
 
 }
 
-CookiesShop.prototype.render = function(){
+CookiesShop.prototype.render = function () {
     var branchRow = document.createElement('tr');
-    var branchName=document.createElement('td')
-    branchName.textContent=this.name;
+    var branchName = document.createElement('td')
+    branchName.textContent = this.name;
     branchRow.appendChild(branchName);
     table.appendChild(branchRow);
 
 
 
 
-    for (var i=0 ; i<this.avgCookiesPerhour.length ; i++){
-        var numberOfCookie=document.createElement('td');
-        numberOfCookie.textContent=this.avgCookiesPerhour[i];
+    for (var i = 0; i < this.avgCookiesPerhour.length; i++) {
+        var numberOfCookie = document.createElement('td');
+        numberOfCookie.textContent = this.avgCookiesPerhour[i];
         branchRow.appendChild(numberOfCookie);
-        
+
 
     }
-    var total=document.createElement('td');
-    total.textContent=this.total;
+    var total = document.createElement('td');
+    total.textContent = this.total;
     branchRow.appendChild(total);
 
 
 }
+
+
+
 var parentMain = document.getElementById('main-id');
 
-var table=document.createElement('table')
+var table = document.createElement('table')
 parentMain.appendChild(table);
-  var headerRow =document.createElement('th');
-  headerRow.textContent='';
-  table.appendChild(headerRow);
-for (var i=0 ; i <=operationHour.length ; i++){
-    var headerRow =document.createElement('th');
-    headerRow.textContent=operationHour[i];
+var headerRow = document.createElement('th');
+headerRow.textContent = '';
+table.appendChild(headerRow);
+for (var i = 0; i <= operationHour.length; i++) {
+    var headerRow = document.createElement('th');
+    headerRow.textContent = operationHour[i];
     table.appendChild(headerRow);
 }
-headerRow.textContent='Total';
+headerRow.textContent = 'Total';
 
+
+//// create last row in table :
+
+// create array fill with 0 
+var totalOfColum;
+function createTotalRow() {
+    totalOfColum = [];
+    for (i = 0; i < operationHour.length; i++) {
+        totalOfColum.push(0);
+    }
+
+}
 
 
 
@@ -123,6 +142,57 @@ Lima.randomCustomer();
 Lima.cookiesbuy();
 Lima.getTotal();
 Lima.render();
+
+
+var arrayTotalPerHour=[];
+for (var i = 0; i < operationHour.length; i++) {
+    var totalPerHour = 0;
+    for(var z=0 ; z<shops.length; z++){
+        totalPerHour+= shops[z].avgCookiesPerhour[i]
+    }   
+    arrayTotalPerHour.push(totalPerHour);
+
+}
+
+var TotalFinalRow = document.createElement('tr');
+table.appendChild(TotalFinalRow);
+
+
+var totalCell = document.createElement('th');
+totalCell.textContent = 'Total';
+TotalFinalRow.appendChild(totalCell);
+
+var columnTotalCell;
+for (i = 0; i < operationHour.length; i++) {
+    columnTotalCell = document.createElement('th');
+    TotalFinalRow.appendChild(columnTotalCell);
+    columnTotalCell.textContent = arrayTotalPerHour[i];
+}
+
+  var finalTotalPerloction=0;
+for (var y=0 ; y<operationHour.length; y++){
+    finalTotalPerloction= finalTotalPerloction + arrayTotalPerHour[y];
+    
+}
+var finalTotal =document.createElement('th');
+TotalFinalRow.appendChild(finalTotal);
+finalTotal.textContent=finalTotalPerloction;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

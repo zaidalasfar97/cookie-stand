@@ -21,10 +21,10 @@ header{
     position: relative;
 }
 header img {
-    position: absolute;
-    height: 150px;
-    margin-left: 1000px;
-    margin-top: auto;
+    position: relative;
+    height: 100px;
+    margin-left: 1100px;
+    margin-bottom: 20px ;
    
 }
 nav ul li {
@@ -44,4 +44,18 @@ main ul li {
     border:3px solid black;
     background-color:darkturquoise;
 }
-
+/* form {
+    border: 3px solid black;
+} */
+fieldset {
+    background-color:gray;
+  }
+legend {
+    background-color: gray;
+    color: white;
+    padding: 5px 10px;
+  }
+  input {
+      
+    margin: 5px;
+  }
