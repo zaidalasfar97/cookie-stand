@@ -22,19 +22,20 @@
         <form id="cookiesForm">
             <fieldset>
                 <legend>Add new location</legend>
-                <label for="newLoc">Name of location: </label>
-                <input type="text" name="newLoc" id="newLoc">
+                <label for="nameFiled">Name of location: </label>
+                <input type="text" name="nameFiled" id="nameFiled" required >
                 <br>
                 <label for="minCustomer">Minimum customer number:</label>
-                <input type="number" name="minCustomer" id="minCustomer">
+                <input type="number" name="minCustomer" id="minCustomer" required>
                 <br>
                 <label for="maxCustomer">Maximum customer number:</label>
-                <input type="number" name="maxCustomer" id="maxCustomer">
+                <input type="number" name="maxCustomer" id="maxCustomer" required>
                 <br>
                 <label for="avgCustomer">Average sales per hour :</label>
-                <input type="number" name="avgCustomer" id="avgCustomer">
+                <input type="number" name="avgCustomer" step="0.1" id="avgCustomer" required>
                 <br>
-                <input type="submit" name="newdata" id="newdata">
+                <input type="submit" name="submit" id="submit">
+                
             </fieldset>
 
         </form> 
