@@ -2,8 +2,8 @@
 
 var operationHour = ['6am', '7am', '8am', '9am', '10am', '11am', '12pm', '1pm', '2pm', '3pm', '4pm', '5pm', '6pm', '7pm', '8pm'];
 
-function random(min, max) {
-    return Math.floor(Math.random() * (max - min) + min);
+function random(min,max) {
+    return Math.floor(Math.random() * (max - min + 1) + min);
 }
 function multi(customer, cookie) {
     return customer * cookie;
@@ -27,6 +27,7 @@ function CookiesShop(name, minCastPerHour, maxCastPerHour, avgCookiesPerSale) {
 }
 
 
+
 // This function should generat a random number for a given max and min numbers for customers
 CookiesShop.prototype.randomCustomer = function () {
     for (var i = 0; i < operationHour.length; i++) {
@@ -37,11 +38,8 @@ CookiesShop.prototype.randomCustomer = function () {
 // This function should calculate the cookies avg number for each hour
 CookiesShop.prototype.cookiesbuy = function () {
     for (var x = 0; x < operationHour.length; x++) {
-        console.log(this.customerPerHour[x]);
-        console.log(this.avgCookiesPerSale);
         this.avgCookiesPerhour.push(Math.floor(multi(this.customerPerHour[x], this.avgCookiesPerSale)));
-        console.log(this.avgCookiesPerhour);
-       
+
     }
 
 }
@@ -59,16 +57,13 @@ CookiesShop.prototype.render = function () {
     branchRow.appendChild(branchName);
     table.appendChild(branchRow);
 
-
-
-
     for (var i = 0; i < this.avgCookiesPerhour.length; i++) {
         var numberOfCookie = document.createElement('td');
         numberOfCookie.textContent = this.avgCookiesPerhour[i];
         branchRow.appendChild(numberOfCookie);
 
-
     }
+
     var total = document.createElement('td');
     total.textContent = this.total;
     branchRow.appendChild(total);
@@ -80,17 +75,18 @@ CookiesShop.prototype.render = function () {
 
 var parentMain = document.getElementById('main-id');
 
-var table = document.createElement('table')
+var table = document.createElement('table');
 parentMain.appendChild(table);
 var headerRow = document.createElement('th');
 headerRow.textContent = '';
 table.appendChild(headerRow);
 for (var i = 0; i <= operationHour.length; i++) {
-    var headerRow = document.createElement('th');
+    headerRow = document.createElement('th');
     headerRow.textContent = operationHour[i];
     table.appendChild(headerRow);
 }
 headerRow.textContent = 'Total';
+
 
 var Seattle = new CookiesShop('Seattle', 23, 65, 6.3);
 Seattle.randomCustomer();
@@ -131,42 +127,43 @@ Lima.render();
 
 
 // create last row :
+
 var TotalFinalRow;
-function createfooter(){
+function createfooter() {
 
     var arrayTotalPerHour = [];
-for (var i = 0; i < operationHour.length; i++) {
-    var totalPerHour = 0;
-    for (var z = 0; z < shops.length; z++) {
-        totalPerHour += shops[z].avgCookiesPerhour[i]
+    for (var i = 0; i < operationHour.length; i++) {
+        var totalPerHour = 0;
+        for (var z = 0; z < shops.length; z++) {
+            totalPerHour = totalPerHour + shops[z].avgCookiesPerhour[i];
+        }
+        arrayTotalPerHour.push(totalPerHour);
+
     }
-    arrayTotalPerHour.push(totalPerHour);
 
-}
-
-TotalFinalRow = document.createElement('tfoot');
-table.appendChild(TotalFinalRow);
+    TotalFinalRow = document.createElement('tfoot');
+    table.appendChild(TotalFinalRow);
 
 
-var totalCell = document.createElement('th');
-totalCell.textContent = 'Total';
-TotalFinalRow.appendChild(totalCell);
+    var totalCell = document.createElement('th');
+    totalCell.textContent = 'Total';
+    TotalFinalRow.appendChild(totalCell);
 
-var columnTotalCell;
-for (i = 0; i < operationHour.length; i++) {
-    columnTotalCell = document.createElement('th');
-    TotalFinalRow.appendChild(columnTotalCell);
-    columnTotalCell.textContent = arrayTotalPerHour[i];
-}
+    var columnTotalCell;
+    for (i = 0; i < operationHour.length; i++) {
+        columnTotalCell = document.createElement('th');
+        TotalFinalRow.appendChild(columnTotalCell);
+        columnTotalCell.textContent = arrayTotalPerHour[i];
+    }
 
-var finalTotalPerloction = 0;
-for (var y = 0; y < operationHour.length; y++) {
-    finalTotalPerloction = finalTotalPerloction + arrayTotalPerHour[y];
+    var finalTotalPerloction = 0;
+    for (var y = 0; y < operationHour.length; y++) {
+        finalTotalPerloction = finalTotalPerloction + arrayTotalPerHour[y];
 
-}
-var finalTotal = document.createElement('th');
-TotalFinalRow.appendChild(finalTotal);
-finalTotal.textContent = finalTotalPerloction;
+    }
+    var finalTotal = document.createElement('th');
+    TotalFinalRow.appendChild(finalTotal);
+    finalTotal.textContent = finalTotalPerloction;
 
 }
 createfooter();
@@ -189,24 +186,24 @@ function addInfo(event) {
     console.log('Max', maxCus);
     var avgCookies = event.target.avgCustomer.value;
     console.log('Avg', avgCookies);
-    if (minCus>maxCus){
-        alert ('The min of customers must be less than max of customers');
-    }else{
-        TotalFinalRow.innerHTML=" ";
+    if (minCus > maxCus) {
+        alert('The min of customers must be less than max of customers');
+    } else {
+        TotalFinalRow.innerHTML = " ";
 
-    
 
-    var newShop = new CookiesShop(name, parseInt(minCus), parseInt(maxCus), parseInt(avgCookies));
-    newShop.randomCustomer();
-    newShop.cookiesbuy();
-    newShop.getTotal();
-    newShop.render();
-    createfooter();
+
+        var newShop = new CookiesShop(name, parseInt(minCus), parseInt(maxCus), parseInt(avgCookies));
+        newShop.randomCustomer();
+        newShop.cookiesbuy();
+        newShop.getTotal();
+        newShop.render();
+        createfooter();
     }
 
     // TotalFinalRow.innerHTML=" ";
 
-    
+
 
     // var newShop = new CookiesShop(name, parseInt(minCus), parseInt(maxCus), parseInt(avgCookies));
     // newShop.randomCustomer();
